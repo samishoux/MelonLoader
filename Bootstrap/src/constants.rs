@@ -6,8 +6,12 @@ use unity_rs::{
     mono::types::{MonoDomain, MonoMethod, MonoObject},
 };
 
-pub type InvokeFnMono =
-    extern "C" fn(*mut MonoMethod, *mut MonoObject, *mut *mut c_void, *mut *mut MonoObject) -> *mut MonoObject;
+pub type InvokeFnMono = extern "C" fn(
+    *mut MonoMethod,
+    *mut MonoObject,
+    *mut *mut c_void,
+    *mut *mut MonoObject,
+) -> *mut MonoObject;
 pub type InvokeFnIl2Cpp = extern "C" fn(
     *mut Il2CppMethod,
     *mut Il2CppObject,
@@ -18,7 +22,7 @@ pub type InvokeFnIl2Cpp = extern "C" fn(
 pub type InitFnMono = extern "C" fn(*const c_char, *const c_char) -> *mut MonoDomain;
 pub type InitFnIl2Cpp = extern "C" fn(*const c_char) -> *mut Il2CppDomain;
 
-pub const MELON_VERSION: &str = "0.6.1";
+pub const MELON_VERSION: &str = "0.6.2";
 
 pub const IS_ALPHA: bool = false;
 

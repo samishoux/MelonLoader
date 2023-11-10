@@ -18,7 +18,22 @@ pub fn get_bootstrap_path(base_path: &PathBuf) -> Result<PathBuf, ProxyError> {
         }
     }
 
-    Err(ProxyError::BootstrapNotFound(base_path.to_owned()))
+    let path_release = base_path
+        .join("release")
+        .join("MelonLoader")
+        .join("Dependencies");
+
+    for name in bootstrap_names.iter() {
+        let bootstrap_path = path_release.join(name).with_extension(DLL_EXTENSION);
+
+        if bootstrap_path.exists() {
+            return Ok(bootstrap_path);
+        }
+    }
+
+    Err(ProxyError::BootstrapNotFound(
+        base_path.join("Release path here").to_owned(),
+    ))
 }
 
 pub fn is_unity(file_path: &PathBuf) -> Result<bool, Box<dyn Error>> {
